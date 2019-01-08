@@ -1,6 +1,7 @@
 #ifndef _CHANNEL_H_
 #define _CHANNEL_H_
 
+#include <Arduino.h>
 #include "RelayModule.h"
 #include "ErrorLogger.h"
 

@@ -1,6 +1,7 @@
 #ifndef _DMM_MANAGER_H_
 #define _DMM_MANAGER_H_
 
+#include <Arduino.h>
 #include "RelayParameters.h"
 #include "ErrorLogger.h"
 #include "Delay.h"

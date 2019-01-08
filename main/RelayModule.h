@@ -1,6 +1,7 @@
 #ifndef _RELAY_MODULE_
 #define _RELAY_MODULE_
 
+#include <Arduino.h>
 #include "ErrorLogger.h"
 #include "RelayParameters.h"
 #include "Types.h"

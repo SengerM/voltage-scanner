@@ -1,6 +1,7 @@
 #ifndef _LINE_MANAGER_H_
 #define _LINE_MANAGER_H_
 
+#include <Arduino.h>
 #include "Channel.h"
 #include "RelayModule.h"
 #include "ErrorLogger.h"

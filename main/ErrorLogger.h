@@ -1,6 +1,7 @@
 #ifndef _STATUS_H_
 #define _STATUS_H_
 
+#include <Arduino.h>
 #include "ArduinoPins.h"
 
 typedef enum { // Asocia etiquetas a los posibles errores que puedan aparecer, así los podemos identificar.
