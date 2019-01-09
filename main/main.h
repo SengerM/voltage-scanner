@@ -7,24 +7,28 @@
 #include "DMMManager.h"
 #include "SerialCommand.h"
 #include "ErrorLogger.h"
+#include "Common.h"
 
 #define N_CHANNELS 2
 
-#define LINE_TERMINATION '\n'
+
 #define IDN "INTI Scanner 190108"
 
-void idn_cmd(void);
 void unknown_cmd(void);
+void idn_cmd(void);
 void connect_cmd(void);
+void dmm_cmd(void);
 
 char commands_strings[][SERIALCOMMAND_MAXCOMMANDLENGTH] = {
 	"IDN?",
-	"CONNECT"
+	"CONNECT",
+	"DMM"
 };
 
 void * commands_functions[] = {
 	idn_cmd,
-	connect_cmd
+	connect_cmd,
+	dmm_cmd
 };
 
 #endif

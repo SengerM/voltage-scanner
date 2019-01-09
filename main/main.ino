@@ -92,4 +92,12 @@ void connect_cmd(void) {
 	ErrorLogger LM_err = LM.connect_channel(channels[channel_number], line);
 }
 
+void dmm_cmd(void) {
+	extern SerialCommand SCmd;
+	char * arg;
+	
+	//~ arg = SCmd.next();
+	Serial.print("Not yet implemented");
+	Serial.print(LINE_TERMINATION);
+}
 // ---------------------------------------------------------------------
