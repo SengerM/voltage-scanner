@@ -2,10 +2,10 @@
 #define _STATUS_H_
 
 #include <Arduino.h>
-#include "Common.h"
 
 #define MAX_ERROR_LOGS 3
 #define MAX_ERROR_MSG_LENGTH 40
+#define LINE_TERMINATION '\n'
 #define ERROR_LOGGER_MSG_HEADDER "ErrorLogger: "
 
 typedef enum {
@@ -25,6 +25,7 @@ public:
 	Error(const Error & err);
 	Error(error_severity_t _severity, char * _msg); // Use this to create errors
 	void report_serial(); // Reports the error through the serial port
+	error_severity_t get_severity(void);
 };
 
 class ErrorLogger {

@@ -8,6 +8,7 @@
 #include "SerialCommand.h"
 #include "ErrorLogger.h"
 #include "Common.h"
+#include "ArduinoPins.h"
 
 #define N_CHANNELS 2
 

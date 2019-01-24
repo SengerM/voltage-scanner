@@ -36,6 +36,15 @@ void Error::report_serial() {
 	for (int i=0; i<this->msg_length; i++)
 		Serial.print(this->msg[i]);
 	Serial.print(LINE_TERMINATION);
+	if (this->severity == FATAL) {
+		Serial.print(F("Execution will be halted due to fatal error, restart the device."));
+		Serial.print(LINE_TERMINATION);
+		while (true);
+	}
+}
+
+error_severity_t Error::get_severity(void) {
+	return this->severity;
 }
 
 ErrorLogger::ErrorLogger(void) {
@@ -50,6 +59,8 @@ ErrorLogger::ErrorLogger(int error_led_pin) {
 }
 
 void ErrorLogger::new_error(const Error & error) {
+	if (error.get_severity() == FATAL)
+		this->report_all_errors();
 	if (this->n_errors < MAX_ERROR_LOGS) {
 		this->errors[this->n_errors] = error;
 		this->n_errors += 1;

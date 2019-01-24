@@ -12,8 +12,7 @@ DMMManager::DMMManager(char H_pin, char L_pin, char disconnect_pin) {
 	this->disconnect();
 }
 
-ErrorLogger DMMManager::disconnect() {
-	ErrorLogger err;
+void DMMManager::disconnect() {
 	if (this->status != disconnected) {
 		digitalWrite(this->pins.disconnect, HIGH);
 		delay_milliseconds(RELAY_COIL_PULSE_TIME_MS);
@@ -21,11 +20,9 @@ ErrorLogger DMMManager::disconnect() {
 		delay_milliseconds(RELAY_COMMUTATION_TIME_MS);
 		this->status = disconnected;
 	}
-	return err;
 }
 
-ErrorLogger DMMManager::connect_to_L() {
-	ErrorLogger err;
+void DMMManager::connect_to_L() {
 	if (this->status != connected_to_L) {
 		this->disconnect();
 		digitalWrite(this->pins.connect_to_L, HIGH);
@@ -33,11 +30,9 @@ ErrorLogger DMMManager::connect_to_L() {
 		digitalWrite(this->pins.connect_to_L, LOW);
 		this->status = connected_to_L;
 	}
-	return err;
 }
 
-ErrorLogger DMMManager::connect_to_H() {
-	ErrorLogger err;
+void DMMManager::connect_to_H() {
 	if (this->status != connected_to_H) {
 		this->disconnect();
 		digitalWrite(this->pins.connect_to_H, HIGH);
@@ -45,7 +40,6 @@ ErrorLogger DMMManager::connect_to_H() {
 		digitalWrite(this->pins.connect_to_H, LOW);
 		this->status = connected_to_H;
 	}
-	return err;
 }
 
 DMMStatus DMMManager::get_status() {
