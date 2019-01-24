@@ -13,7 +13,7 @@
 #define N_CHANNELS 2
 
 #define COMPILATION_TIMESTAMP __DATE__ " " __TIME__
-#define IDN "INTI Scanner"
+#define IDN "Zener Scanner INTI"
 
 
 void unknown_cmd(void);
@@ -27,9 +27,10 @@ char commands_strings[][SERIALCOMMAND_MAXCOMMANDLENGTH] = {
 	"IDN?", // Returns the identity of the instrument.
 	"VERSION?", // Returns information about the firmware.
 	"ERRORS?", // Queries all the errors in the error_logger.
-	"E?", // Same as "ERRORS?"
-	"CONNECT", // CONNECT <ch>,<line>
-	"DMM" // 
+	"E?", // Same as "ERRORS?".
+	"CONNECT", // CONNECT <ch> <line>, <ch> must be a number (0,1,2,...) and <line> must be 'A' or 'B'. (NULL disconnects the line.)
+	"C", // Same as "CONNECT".
+	"DMM" // DMM <option>, <option> can be 'H' (high), 'L' (low) or 'D' (disconnect).
 };
 
 void * commands_functions[] = {
@@ -37,6 +38,7 @@ void * commands_functions[] = {
 	version_cmd,
 	errors_cmd,
 	errors_cmd,
+	connect_cmd,
 	connect_cmd,
 	dmm_cmd
 };

@@ -52,7 +52,7 @@ void connect_cmd(void) {
 		return;
 	}
 	channel_number = atoi(arg1);
-	if (channel_number > N_CHANNELS) {
+	if (channel_number > N_CHANNELS || channel_number < 0) {
 		error_logger.new_error(Error(ERROR, "Invalid channel"));
 		return;
 	}
@@ -64,14 +64,25 @@ void connect_cmd(void) {
 		error_logger.new_error(Error(ERROR, "Invalid line"));
 		return;
 	}
-	LM.connect_channel(channels[channel_number], line);
+	if (channel_number == 0)
+		LM.open_line(line);
+	else
+		LM.connect_channel(channels[channel_number], line);
 }
 
 void dmm_cmd(void) {
 	extern SerialCommand SCmd;
 	char * arg;
 	
-	Serial.print("Not yet implemented");
-	Serial.print(LINE_TERMINATION);
+	arg = SCmd.next(); 
+	if (arg == NULL) {
+		error_logger.new_error(Error(ERROR, "Missing argument"));
+		return;
+	}
+	switch (arg[0]) {
+		case 'H': DMMm.connect_to_H();
+		case 'L': DMMm.connect_to_L();
+		case 'D': DMMm.disconnect();
+	}
 }
 // ---------------------------------------------------------------------
