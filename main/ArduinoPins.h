@@ -13,5 +13,6 @@
 #define DISCONNECT_DMM_PIN 7
 
 #define ERROR_LOGGER_LED_PIN 13 // This pin indicates wheter there is an error or not.
+#define ERROR_LOGGER_BUZZER_PIN 12
 
 #endif

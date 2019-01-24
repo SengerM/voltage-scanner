@@ -1,5 +1,29 @@
 #include "ErrorLogger.h"
 
+void _warning_sound_(int pin) {
+	tone(pin, 1000, 50);
+}
+
+void _error_sound_(int pin) {
+	tone(pin, 1000, 500);
+}
+
+void _fatal_sound_(int pin) {
+	tone(pin, 1000, 1000);
+}
+
+void _play_sound_alarm_(error_severity_t severity, int pin) {
+	if (pin < 0)
+		return;
+	switch (severity) {
+		case NO_ERROR: return;
+		case WARNING: _warning_sound_(pin); break;
+		case ERROR: _error_sound_(pin); break;
+		case FATAL: _fatal_sound_(pin); break;
+		default: return;
+	}
+}
+
 Error::Error() {
 	this-> severity = NO_ERROR;
 	this-> msg_length = 0;
@@ -49,16 +73,27 @@ error_severity_t Error::get_severity(void) {
 
 ErrorLogger::ErrorLogger(void) {
 	this->error_led_pin = -1;
+	this->buzzer_pin = -1;
 	this->n_errors = 0;
 }
 
 ErrorLogger::ErrorLogger(int error_led_pin) {
 	this->error_led_pin = error_led_pin;
+	this->buzzer_pin = -1;
 	pinMode(error_led_pin, OUTPUT);
 	this->n_errors = 0;
 }
 
+ErrorLogger::ErrorLogger(int error_led_pin, int buzzer_pin) {
+	this->error_led_pin = error_led_pin;
+	this->buzzer_pin = buzzer_pin;
+	pinMode(error_led_pin, OUTPUT);
+	pinMode(buzzer_pin, OUTPUT);
+	this->n_errors = 0;
+}
+
 void ErrorLogger::new_error(const Error & error) {
+	_play_sound_alarm_(error.get_severity(), this->buzzer_pin);
 	if (error.get_severity() == FATAL)
 		this->report_all_errors();
 	if (this->n_errors < MAX_ERROR_LOGS) {
@@ -88,9 +123,7 @@ void ErrorLogger::report_first_error() {
 }
 
 void ErrorLogger::report_all_errors() {
-	while (this->n_errors >= 0) {
+	while (this->n_errors > 0)
 		this->report_first_error();
-		if (this->n_errors == 0)
-			break;
-	}
 }
+

@@ -25,8 +25,9 @@ void dmm_cmd(void);
 
 char commands_strings[][SERIALCOMMAND_MAXCOMMANDLENGTH] = {
 	"IDN?", // Returns the identity of the instrument.
-	"FVER?", // Returns information about the firmware.
+	"VERSION?", // Returns information about the firmware.
 	"ERRORS?", // Queries all the errors in the error_logger.
+	"E?", // Same as "ERRORS?"
 	"CONNECT", // CONNECT <ch>,<line>
 	"DMM" // 
 };
@@ -34,6 +35,7 @@ char commands_strings[][SERIALCOMMAND_MAXCOMMANDLENGTH] = {
 void * commands_functions[] = {
 	idn_cmd,
 	version_cmd,
+	errors_cmd,
 	errors_cmd,
 	connect_cmd,
 	dmm_cmd

@@ -5,7 +5,7 @@ RelayModule module_1(M2C, M2C_MODULE_PINS); // This is the physical board in whi
 Channel channels[N_CHANNELS] = {Channel(&module_1, 0), Channel(&module_1, 1)}; // The channels.
 DMMManager DMMm(CONNECT_DMM_TO_H_PIN, CONNECT_DMM_TO_L_PIN, DISCONNECT_DMM_PIN); // Digital multimeter.
 LineManager LM(LINE_A_STATUS_PIN, LINE_B_STATUS_PIN, CONNECT_STATUS_DETECTOR_PIN, DISCONNECT_STATUS_DETECTOR_PIN, DMMm);
-ErrorLogger error_logger(ERROR_LOGGER_LED_PIN);
+ErrorLogger error_logger(ERROR_LOGGER_LED_PIN, ERROR_LOGGER_BUZZER_PIN);
 
 void setup() {
 	Serial.begin(9600);
@@ -21,8 +21,7 @@ void loop() {
 // SerialCommand functions ---------------------------------------------
 
 void unknown_cmd(void) {
-	Serial.print(F("Unknown command"));
-	Serial.print(LINE_TERMINATION);
+	error_logger.new_error(Error(ERROR, "Unknown command"));
 }
 
 void idn_cmd(void) {
@@ -49,14 +48,12 @@ void connect_cmd(void) {
 	arg1 = SCmd.next(); 
 	arg2 = SCmd.next();
 	if (arg1 == NULL || arg2 == NULL) {
-		Serial.print(F("Missing arguments"));
-		Serial.print(LINE_TERMINATION);
+		error_logger.new_error(Error(ERROR, "Missing arguments"));
 		return;
 	}
 	channel_number = atoi(arg1);
 	if (channel_number > N_CHANNELS) {
-		Serial.print(F("Invalid channel"));
-		Serial.print(LINE_TERMINATION);
+		error_logger.new_error(Error(ERROR, "Invalid channel"));
 		return;
 	}
 	if (arg2[0] == 'A')
@@ -64,11 +61,9 @@ void connect_cmd(void) {
 	else if (arg2[0] == 'B')
 		line = B;
 	else {
-		Serial.print(F("Invalid line"));
-		Serial.print(LINE_TERMINATION);
+		error_logger.new_error(Error(ERROR, "Invalid line"));
 		return;
 	}
-	
 	LM.connect_channel(channels[channel_number], line);
 }
 
@@ -76,7 +71,6 @@ void dmm_cmd(void) {
 	extern SerialCommand SCmd;
 	char * arg;
 	
-	//~ arg = SCmd.next();
 	Serial.print("Not yet implemented");
 	Serial.print(LINE_TERMINATION);
 }

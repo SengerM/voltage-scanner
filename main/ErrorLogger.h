@@ -32,10 +32,12 @@ class ErrorLogger {
 private:
 	Error errors[MAX_ERROR_LOGS];
 	int error_led_pin;
+	int buzzer_pin;
 	unsigned int n_errors;
 public:
 	ErrorLogger();
 	ErrorLogger(int error_led_pin); // In this case an LED is turned on if there is any error in the ErrorLogger
+	ErrorLogger(int error_led_pin, int error_buzzer_pin); // This mode also allows a buzzer
 	void new_error(const Error & error); // Use this to add an error to the ErrorLogger
 	void report_first_error(); // Errors are stored in a FIFO array
 	void report_all_errors();
