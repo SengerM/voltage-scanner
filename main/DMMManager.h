@@ -3,7 +3,6 @@
 
 #include <Arduino.h>
 #include "RelayParameters.h"
-#include "ErrorLogger.h"
 #include "Delay.h"
 
 enum DMMStatus {connected_to_H, connected_to_L, disconnected};
@@ -18,9 +17,9 @@ private:
 	DMMStatus status;
 public:
 	DMMManager(char H_pin, char L_pin, char disconnect_pin);
-	ErrorLogger disconnect();
-	ErrorLogger connect_to_L();
-	ErrorLogger connect_to_H();
+	void disconnect();
+	void connect_to_L();
+	void connect_to_H();
 	DMMStatus get_status();
 };
 

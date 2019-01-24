@@ -22,8 +22,8 @@ private:
 	} pins;
 public:
 	LineManager(char read_detector_A_pin, char read_detector_B_pin, char connect_detectors_pin, char disconnect_detectors_pin, DMMManager & DMM_manager); ///< Constructor. Needs specification for the pins to drive the hardware to check the status of the line.
-	ErrorLogger connect_channel(Channel & channel, LineLabels line); ///< Connect the specified channel to the specified line.
-	ErrorLogger open_line(LineLabels line); ///< Disconnect any channel that could be connected to the line.
+	void connect_channel(Channel & channel, LineLabels line); ///< Connect the specified channel to the specified line.
+	void open_line(LineLabels line); ///< Disconnect any channel that could be connected to the line.
 	LineStatus check_line_status(LineLabels line); ///< Checks whether there is anything connected to the line and returns the status.
 };
 
