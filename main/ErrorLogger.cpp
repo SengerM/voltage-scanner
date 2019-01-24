@@ -88,6 +88,9 @@ void ErrorLogger::report_first_error() {
 }
 
 void ErrorLogger::report_all_errors() {
-	while (this->n_errors > 0)
+	while (this->n_errors >= 0) {
 		this->report_first_error();
+		if (this->n_errors == 0)
+			break;
+	}
 }

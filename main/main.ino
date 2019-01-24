@@ -30,6 +30,16 @@ void idn_cmd(void) {
 	Serial.print(LINE_TERMINATION);
 }
 
+void version_cmd(void) {
+	Serial.print(F("Software compilation timestamp: "));
+	Serial.print(F(COMPILATION_TIMESTAMP));
+	Serial.print(LINE_TERMINATION);
+}
+
+void errors_cmd(void) {
+	error_logger.report_all_errors();
+}
+
 void connect_cmd(void) {
 	extern SerialCommand SCmd;
 	unsigned int channel_number;
