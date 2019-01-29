@@ -9,6 +9,7 @@
 #include "ErrorLogger.h"
 #include "Common.h"
 #include "ArduinoPins.h"
+#include "Delay.h"
 
 #define N_CHANNELS 2
 
