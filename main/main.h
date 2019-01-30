@@ -14,6 +14,7 @@
 #define N_CHANNELS 2
 
 #define COMPILATION_TIMESTAMP __DATE__ " " __TIME__
+#define FIRMWARE_VERSION "2.0"
 #define IDN "Zener Scanner INTI"
 
 
@@ -22,6 +23,7 @@ void idn_cmd(void);
 void version_cmd(void);
 void errors_cmd(void);
 void connect_cmd(void);
+void open_line_cmd(void);
 void dmm_cmd(void);
 
 char commands_strings[][SERIALCOMMAND_MAXCOMMANDLENGTH] = {
@@ -31,7 +33,9 @@ char commands_strings[][SERIALCOMMAND_MAXCOMMANDLENGTH] = {
 	"E?", // Same as "ERRORS?".
 	"CONNECT", // CONNECT <ch> <line>, <ch> must be a number (0,1,2,...) and <line> must be 'A' or 'B'. (0 disconnects the line.)
 	"C", // Same as "CONNECT".
-	"DMM" // DMM <option>, <option> can be 'H' (high), 'L' (low) or 'D' (disconnect).
+	"DMM", // DMM <option>, <option> can be 'H' (high), 'L' (low) or 'D' (disconnect).
+	"OPENLINE", // OPENLINE <line>, <line> must be 'A' or 'B'.
+	"OL" // Same as "OPENLINE".
 };
 
 void * commands_functions[] = {
@@ -41,7 +45,9 @@ void * commands_functions[] = {
 	errors_cmd,
 	connect_cmd,
 	connect_cmd,
-	dmm_cmd
+	dmm_cmd,
+	open_line_cmd,
+	open_line_cmd
 };
 
 #endif
