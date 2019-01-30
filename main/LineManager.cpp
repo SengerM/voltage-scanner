@@ -22,6 +22,10 @@ void LineManager::setup(void) {
 void LineManager::connect_channel(Channel & channel, LineLabels line) {
 	extern ErrorLogger error_logger;
 	if (this->check_line_status(line) == open) {
+		if (&channel == this->currently_connected_channel[A] || &channel == this->currently_connected_channel[B]) { // This means that the channel is already connected to a line.
+			error_logger.new_error(Error(WARNING, "Trying to connect a channel that is already connected, nothing is done"));
+			return;
+		}
 		channel.get_relay_module()->connect_channel_to_line(line, channel.get_channel_number_in_relay_module());
 		delay_milliseconds(RELAY_COMMUTATION_TIME_MS);
 		if (this->check_line_status(line) == connected) // If the connection was succesfull...
@@ -29,20 +33,20 @@ void LineManager::connect_channel(Channel & channel, LineLabels line) {
 		else
 			error_logger.new_error(Error(ERROR, "Cannot connect line"));
 	} else {
-		error_logger.new_error(Error(WARNING, "Trying to connect channel to bussy line"));
+		error_logger.new_error(Error(WARNING, "Trying to connect channel to bussy line, nothing is done"));
 	}
 }
 
 void LineManager::open_line(LineLabels line) {
 	extern ErrorLogger error_logger;
 	if (this->check_line_status(line) == open) { // if (there is nothing connected) do nothing.
-		this->currently_connected_channel[line] = NULL;
 		return;
 	} else { // There is something connected.
 		if (this->currently_connected_channel[line] != NULL) { // If we know which channel is connected...
 			this->currently_connected_channel[line]->get_relay_module()->disconnect_channel(this->currently_connected_channel[line]->get_channel_number_in_relay_module());
 			if (this->check_line_status(line) == open) { // Check if effectively disconected the channel.
 				this->currently_connected_channel[line] = NULL;
+				return; // The job was done!
 			}
 		} else // There is something connected but we don't know which channel!!! This is an error!
 			error_logger.new_error(Error(ERROR, "Cannot open line, don't know which channel is connected"));
