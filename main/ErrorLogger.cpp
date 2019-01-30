@@ -2,14 +2,17 @@
 
 void _warning_sound_(int pin) {
 	tone(pin, 1000, 50);
+	delay(500);
 }
 
 void _error_sound_(int pin) {
 	tone(pin, 1000, 500);
+	delay(500);
 }
 
 void _fatal_sound_(int pin) {
 	tone(pin, 1000, 1000);
+	delay(500);
 }
 
 void _play_sound_alarm_(error_severity_t severity, int pin) {
