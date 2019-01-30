@@ -21,6 +21,7 @@ public:
 	void connect_to_L();
 	void connect_to_H();
 	DMMStatus get_status();
+	void setup(void);
 };
 
 #endif

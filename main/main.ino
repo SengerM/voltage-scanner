@@ -12,6 +12,9 @@ void setup() {
 	for (int i; i<sizeof(commands_strings)/sizeof(commands_strings[0]); i++) // Add the commands to the command handler.
 		SCmd.addCommand(commands_strings[i], commands_functions[i]);
 	SCmd.setDefaultHandler(unknown_cmd);
+	module_1.setup();
+	DMMm.setup();
+	LM.setup();
 }
 
 void loop() {

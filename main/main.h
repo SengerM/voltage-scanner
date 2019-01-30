@@ -29,7 +29,7 @@ char commands_strings[][SERIALCOMMAND_MAXCOMMANDLENGTH] = {
 	"VERSION?", // Returns information about the firmware.
 	"ERRORS?", // Queries all the errors in the error_logger.
 	"E?", // Same as "ERRORS?".
-	"CONNECT", // CONNECT <ch> <line>, <ch> must be a number (0,1,2,...) and <line> must be 'A' or 'B'. (NULL disconnects the line.)
+	"CONNECT", // CONNECT <ch> <line>, <ch> must be a number (0,1,2,...) and <line> must be 'A' or 'B'. (0 disconnects the line.)
 	"C", // Same as "CONNECT".
 	"DMM" // DMM <option>, <option> can be 'H' (high), 'L' (low) or 'D' (disconnect).
 };

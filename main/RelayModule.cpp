@@ -15,6 +15,10 @@ RelayModule::RelayModule(ModuleType _module_type, unsigned char * _pins) {
 		extern ErrorLogger error_logger;
 		error_logger.new_error(Error(FATAL, "Relay module not implemented"));
 	}
+}
+
+void RelayModule::setup(void) {
+	char i;
 	for (i=0; i<MAXIMUM_CHANNELS_PER_MODULE; i++)
 		used_channels[i] = false; // Mark all channels as 'not used'.
 	for (i=0;i<(this->N_channels);i++)

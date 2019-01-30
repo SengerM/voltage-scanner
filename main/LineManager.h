@@ -25,6 +25,7 @@ public:
 	void connect_channel(Channel & channel, LineLabels line); ///< Connect the specified channel to the specified line.
 	void open_line(LineLabels line); ///< Disconnect any channel that could be connected to the line.
 	LineStatus check_line_status(LineLabels line); ///< Checks whether there is anything connected to the line and returns the status.
+	void setup(void);
 };
 
 #endif

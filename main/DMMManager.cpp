@@ -4,11 +4,12 @@ DMMManager::DMMManager(char H_pin, char L_pin, char disconnect_pin) {
 	this->pins.connect_to_H = H_pin;
 	this->pins.connect_to_L = L_pin;
 	this->pins.disconnect = disconnect_pin;
-	
-	pinMode(H_pin, OUTPUT);
-	pinMode(L_pin, OUTPUT);
-	pinMode(disconnect_pin, OUTPUT);
-	
+}
+
+void DMMManager::setup(void) {
+	pinMode(this->pins.connect_to_H, OUTPUT);
+	pinMode(this->pins.connect_to_L, OUTPUT);
+	pinMode(this->pins.disconnect, OUTPUT);
 	this->disconnect();
 }
 
