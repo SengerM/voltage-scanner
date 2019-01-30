@@ -36,6 +36,7 @@ public:
 	bool request_channel(unsigned char channel_number_in_relay_module); ///< Checks whether a channel was already configured or not within the current RelayModule object. If it is free for use, returns 'true' and makrs it as used. Otherwise returns 'false' indicating it is ocupied.
 	bool connect_channel_to_line(LineLabels line, unsigned char channel); ///< Acts on the pins of the Arduino borad in order to connect the specified channel to the specified line.
 	bool disconnect_channel(unsigned char channel); ///< Acts on the pins of the Arduino board in order to disconnect the specified channel.
+	void setup(void);
 };
 
 #endif

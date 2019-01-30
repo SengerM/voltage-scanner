@@ -5,15 +5,18 @@ LineManager::LineManager(char read_detector_A_pin, char read_detector_B_pin, cha
 	this->pins.read_detector[B] = read_detector_B_pin;
 	this->pins.connect_detectors = connect_detectors_pin;
 	this->pins.disconnect_detectors = disconnect_detectors_pin;
-	pinMode(read_detector_A_pin, INPUT);
-	pinMode(read_detector_B_pin, INPUT);
-	pinMode(connect_detectors_pin, OUTPUT);
-	pinMode(disconnect_detectors_pin, OUTPUT);
 	
 	this->DMM_manager = &DMM_manager_;
 	
 	currently_connected_channel[0] = NULL;
 	currently_connected_channel[1] = NULL;
+}
+
+void LineManager::setup(void) {
+	pinMode(this->pins.read_detector[A], INPUT);
+	pinMode(this->pins.read_detector[B], INPUT);
+	pinMode(this->pins.connect_detectors, OUTPUT);
+	pinMode(this->pins.disconnect_detectors, OUTPUT);
 }
 
 void LineManager::connect_channel(Channel & channel, LineLabels line) {

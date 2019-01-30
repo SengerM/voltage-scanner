@@ -12,6 +12,9 @@ void setup() {
 	for (int i; i<sizeof(commands_strings)/sizeof(commands_strings[0]); i++) // Add the commands to the command handler.
 		SCmd.addCommand(commands_strings[i], commands_functions[i]);
 	SCmd.setDefaultHandler(unknown_cmd);
+	module_1.setup();
+	DMMm.setup();
+	LM.setup();
 }
 
 void loop() {
@@ -41,6 +44,7 @@ void errors_cmd(void) {
 
 void connect_cmd(void) {
 	extern SerialCommand SCmd;
+	extern Channel channels[N_CHANNELS];
 	unsigned int channel_number;
 	LineLabels line;
 	char * arg1, * arg2;
@@ -67,7 +71,7 @@ void connect_cmd(void) {
 	if (channel_number == 0)
 		LM.open_line(line);
 	else
-		LM.connect_channel(channels[channel_number], line);
+		LM.connect_channel(channels[channel_number-1], line);
 }
 
 void dmm_cmd(void) {
@@ -80,9 +84,9 @@ void dmm_cmd(void) {
 		return;
 	}
 	switch (arg[0]) {
-		case 'H': DMMm.connect_to_H();
-		case 'L': DMMm.connect_to_L();
-		case 'D': DMMm.disconnect();
+		case 'H': DMMm.connect_to_H(); break;
+		case 'L': DMMm.connect_to_L(); break;
+		case 'D': DMMm.disconnect(); break;
 	}
 }
 // ---------------------------------------------------------------------
