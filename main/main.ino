@@ -33,7 +33,9 @@ void idn_cmd(void) {
 }
 
 void version_cmd(void) {
-	Serial.print(F("Software compilation timestamp: "));
+	Serial.print(F("Version "));
+	Serial.print(F(FIRMWARE_VERSION));
+	Serial.print(F(" - "));
 	Serial.print(F(COMPILATION_TIMESTAMP));
 	Serial.print(LINE_TERMINATION);
 }
@@ -56,7 +58,7 @@ void connect_cmd(void) {
 		return;
 	}
 	channel_number = atoi(arg1);
-	if (channel_number > N_CHANNELS || channel_number < 0) {
+	if (channel_number > N_CHANNELS || channel_number <= 0) {
 		error_logger.new_error(Error(ERROR, "Invalid channel"));
 		return;
 	}
@@ -68,10 +70,7 @@ void connect_cmd(void) {
 		error_logger.new_error(Error(ERROR, "Invalid line"));
 		return;
 	}
-	if (channel_number == 0)
-		LM.open_line(line);
-	else
-		LM.connect_channel(channels[channel_number-1], line);
+	LM.connect_channel(channels[channel_number-1], line);
 }
 
 void dmm_cmd(void) {
@@ -87,6 +86,23 @@ void dmm_cmd(void) {
 		case 'H': DMMm.connect_to_H(); break;
 		case 'L': DMMm.connect_to_L(); break;
 		case 'D': DMMm.disconnect(); break;
+		default: error_logger.new_error(Error(ERROR, "Wrong argument")); break;
+	}
+}
+
+void open_line_cmd(void) {
+	extern SerialCommand SCmd;
+	char * arg;
+	
+	arg = SCmd.next(); 
+	if (arg == NULL) {
+		error_logger.new_error(Error(ERROR, "Missing argument"));
+		return;
+	}
+	switch (arg[0]) {
+		case 'A': LM.open_line(A); break;
+		case 'B': LM.open_line(B); break;
+		default: error_logger.new_error(Error(ERROR, "Wrong argument")); break;
 	}
 }
 // ---------------------------------------------------------------------
