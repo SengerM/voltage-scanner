@@ -96,7 +96,8 @@ void open_line_cmd(void) {
 	
 	arg = SCmd.next(); 
 	if (arg == NULL) {
-		error_logger.new_error(Error(ERROR, "Missing argument"));
+		LM.open_line(A);
+		LM.open_line(B);
 		return;
 	}
 	switch (arg[0]) {

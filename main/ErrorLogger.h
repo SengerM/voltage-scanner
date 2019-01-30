@@ -4,7 +4,7 @@
 #include <Arduino.h>
 
 #define MAX_ERROR_LOGS 3
-#define MAX_ERROR_MSG_LENGTH 60
+#define MAX_ERROR_MSG_LENGTH 80
 #define LINE_TERMINATION '\n'
 #define ERROR_LOGGER_MSG_HEADDER "ErrorLogger: "
 

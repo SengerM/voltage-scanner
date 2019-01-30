@@ -14,7 +14,7 @@
 #define N_CHANNELS 2
 
 #define COMPILATION_TIMESTAMP __DATE__ " " __TIME__
-#define FIRMWARE_VERSION "2.0"
+#define FIRMWARE_VERSION "2.1"
 #define IDN "Zener Scanner INTI"
 
 
@@ -34,7 +34,7 @@ char commands_strings[][SERIALCOMMAND_MAXCOMMANDLENGTH] = {
 	"CONNECT", // CONNECT <ch> <line>, <ch> must be a number (0,1,2,...) and <line> must be 'A' or 'B'. (0 disconnects the line.)
 	"C", // Same as "CONNECT".
 	"DMM", // DMM <option>, <option> can be 'H' (high), 'L' (low) or 'D' (disconnect).
-	"OPENLINE", // OPENLINE <line>, <line> must be 'A' or 'B'.
+	"OPENLINE", // OPENLINE <line>, <line> must be 'A' or 'B'. If no argument is passed, both lines are disconnected.
 	"OL" // Same as "OPENLINE".
 };
 
