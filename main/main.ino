@@ -83,9 +83,9 @@ void dmm_cmd(void) {
 		return;
 	}
 	switch (arg[0]) {
-		case 'H': DMMm.connect_to_H();
-		case 'L': DMMm.connect_to_L();
-		case 'D': DMMm.disconnect();
+		case 'H': DMMm.connect_to_H(); break;
+		case 'L': DMMm.connect_to_L(); break;
+		case 'D': DMMm.disconnect(); break;
 	}
 }
 // ---------------------------------------------------------------------

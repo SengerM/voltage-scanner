@@ -4,6 +4,7 @@ DMMManager::DMMManager(char H_pin, char L_pin, char disconnect_pin) {
 	this->pins.connect_to_H = H_pin;
 	this->pins.connect_to_L = L_pin;
 	this->pins.disconnect = disconnect_pin;
+	this->status = connected_to_H;
 }
 
 void DMMManager::setup(void) {
@@ -29,6 +30,7 @@ void DMMManager::connect_to_L() {
 		digitalWrite(this->pins.connect_to_L, HIGH);
 		delay_milliseconds(RELAY_COIL_PULSE_TIME_MS);
 		digitalWrite(this->pins.connect_to_L, LOW);
+		delay_milliseconds(RELAY_COMMUTATION_TIME_MS);
 		this->status = connected_to_L;
 	}
 }
@@ -39,6 +41,7 @@ void DMMManager::connect_to_H() {
 		digitalWrite(this->pins.connect_to_H, HIGH);
 		delay_milliseconds(RELAY_COIL_PULSE_TIME_MS);
 		digitalWrite(this->pins.connect_to_H, LOW);
+		delay_milliseconds(RELAY_COMMUTATION_TIME_MS);
 		this->status = connected_to_H;
 	}
 }
