@@ -44,6 +44,7 @@ void errors_cmd(void) {
 
 void connect_cmd(void) {
 	extern SerialCommand SCmd;
+	extern Channel channels[N_CHANNELS];
 	unsigned int channel_number;
 	LineLabels line;
 	char * arg1, * arg2;
@@ -70,7 +71,7 @@ void connect_cmd(void) {
 	if (channel_number == 0)
 		LM.open_line(line);
 	else
-		LM.connect_channel(channels[channel_number], line);
+		LM.connect_channel(channels[channel_number-1], line);
 }
 
 void dmm_cmd(void) {
