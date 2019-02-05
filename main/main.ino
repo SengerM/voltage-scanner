@@ -18,7 +18,7 @@ void setup() {
 }
 
 void loop() {
-	SCmd.readSerial();
+	SCmd.readSerial(); // This will call each of the "SerialCommand functions" from below.
 }
 
 // SerialCommand functions ---------------------------------------------
